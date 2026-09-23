@@ -14,8 +14,8 @@ function error_page(string $mensaje, string $detalle = ''): void {
     <style>body{font-family:sans-serif;max-width:600px;margin:60px auto;padding:0 20px;}
     .err{background:#fee;border:1px solid #f99;border-radius:8px;padding:20px;}
     pre{white-space:pre-wrap;background:#111;color:#0f0;padding:14px;border-radius:6px;font-size:0.8rem;overflow:auto;}
-    a{color:#FF2400;}</style></head><body>";
-    echo "<div class='err'><strong>❌ " . htmlspecialchars($mensaje) . "</strong></div>";
+    a{color:#425f00;}</style></head><body>";
+    echo "<div class='err'><strong>" . htmlspecialchars($mensaje) . "</strong></div>";
     if ($detalle) echo "<pre>" . htmlspecialchars($detalle) . "</pre>";
     echo "<p><a href='index.php'>← Volver al formulario</a></p></body></html>";
     exit;
@@ -109,20 +109,21 @@ $rel_carpeta = 'clientes/' . basename($carpeta);
 <meta charset="UTF-8">
 <title>Mockup generado — <?= htmlspecialchars($cliente) ?></title>
 <style>
+    :root { --verde-ecommjuice: #9CE000; }
     body { font-family: -apple-system, sans-serif; max-width: 900px; margin: 40px auto; padding: 0 20px; color: #222; }
     img { max-width: 100%; border-radius: 8px; box-shadow: 0 2px 12px rgba(0,0,0,0.12); }
     .meta { color: #666; font-size: 0.85rem; margin: 10px 0 24px; }
-    a.btn { display: inline-block; margin-top: 20px; padding: 10px 20px; background: #FF2400; color: #fff; text-decoration: none; border-radius: 6px; }
+    a.btn { display: inline-block; margin-top: 20px; padding: 10px 20px; background: var(--verde-ecommjuice); color: #111; text-decoration: none; border-radius: 6px; }
     pre { background: #111; color: #0f0; padding: 14px; border-radius: 6px; font-size: 0.78rem; overflow: auto; }
 </style>
 </head>
 <body>
-    <h1>✅ Mockup de <?= htmlspecialchars($cliente) ?></h1>
+    <h1>Mockup de <?= htmlspecialchars($cliente) ?></h1>
     <p class="meta">Guardado en: <code><?= htmlspecialchars($rel_carpeta) ?></code></p>
     <img src="<?= htmlspecialchars($rel_carpeta) ?>/portfolio_resultado.png" alt="Mockup de <?= htmlspecialchars($cliente) ?>">
     <div>
         <a class="btn" href="<?= htmlspecialchars($rel_carpeta) ?>/portfolio_resultado.png" download>Descargar PNG</a>
-        <a class="btn" style="background:#333;" href="index.php">Generar otro</a>
+        <a class="btn" href="index.php">Generar otro</a>
     </div>
     <?php if ($salida_texto): ?>
         <p class="meta" style="margin-top:30px;">Registro del proceso:</p>
