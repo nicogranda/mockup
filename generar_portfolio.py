@@ -42,7 +42,7 @@ from playwright.sync_api import sync_playwright
 SCRIPT_DIR = Path(__file__).parent
 BASE_IMAGE_PATH = SCRIPT_DIR / "mockup_base.png"
 SEO_IMAGE_PATH = SCRIPT_DIR / "SEO1.png"
-SEO_LAPTOP_BOX = (490, 350, 965, 675)  # Área del portátil SEO completo en el lienzo
+SEO_LAPTOP_BOX = (500, 300, 1050, 675)  # Portátil SEO completo, incluida la lupa
 
 # Coordenadas (x0, y0, x1, y1) de cada pantalla dentro de mockup_base.png
 SCREEN_BOXES = {
@@ -151,6 +151,11 @@ def ajustar_a_pantalla(shot: Image.Image, box: tuple) -> Image.Image:
 def construir_mockup_dispositivos(url: str, incluye_seo: bool) -> Image.Image:
     """Genera el frame de 4 dispositivos con el sitio real (y SEO en el laptop si aplica)."""
     base = Image.open(BASE_IMAGE_PATH).convert("RGB")
+    if incluye_seo:
+        # Retira el portátil anterior del frame antes de colocar el PNG completo.
+        # Se hace antes de capturar las pantallas para conservar las otras imágenes.
+        from PIL import ImageDraw
+        ImageDraw.Draw(base).rectangle((495, 377, 955, 670), fill=base.getpixel((0, 0)))
 
     with sync_playwright() as p:
         browser = p.chromium.launch()
