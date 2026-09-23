@@ -41,7 +41,8 @@ from playwright.sync_api import sync_playwright
 
 SCRIPT_DIR = Path(__file__).parent
 BASE_IMAGE_PATH = SCRIPT_DIR / "mockup_base.png"
-SEO_PANEL_PATH = SCRIPT_DIR / "seo_panel.png"
+SEO_IMAGE_PATH = SCRIPT_DIR / "SEO1.png"
+SEO_LAPTOP_BOX = (490, 350, 965, 675)  # Área del portátil SEO completo en el lienzo
 
 # Coordenadas (x0, y0, x1, y1) de cada pantalla dentro de mockup_base.png
 SCREEN_BOXES = {
@@ -150,7 +151,6 @@ def ajustar_a_pantalla(shot: Image.Image, box: tuple) -> Image.Image:
 def construir_mockup_dispositivos(url: str, incluye_seo: bool) -> Image.Image:
     """Genera el frame de 4 dispositivos con el sitio real (y SEO en el laptop si aplica)."""
     base = Image.open(BASE_IMAGE_PATH).convert("RGB")
-    seo_img = Image.open(SEO_PANEL_PATH).convert("RGB") if incluye_seo else None
 
     with sync_playwright() as p:
         browser = p.chromium.launch()
@@ -158,12 +158,9 @@ def construir_mockup_dispositivos(url: str, incluye_seo: bool) -> Image.Image:
 
         for nombre, box in SCREEN_BOXES.items():
             if nombre == "laptop" and incluye_seo:
-                print("→ Pantalla 'laptop': usando gráfico de SEO...")
-                shot = seo_img
-            else:
-                print(f"→ Capturando versión '{nombre}'...")
-                shot = capturar_screenshot(page, url, VIEWPORTS[nombre])
-
+                continue
+            print(f"→ Capturando versión '{nombre}'...")
+            shot = capturar_screenshot(page, url, VIEWPORTS[nombre])
             shot_ajustado = ajustar_a_pantalla(shot, box)
 
             mask_path = SCRIPT_DIR / f"mask_{nombre}.png"
@@ -174,6 +171,14 @@ def construir_mockup_dispositivos(url: str, incluye_seo: bool) -> Image.Image:
                 base.paste(shot_ajustado, (box[0], box[1]))
 
         browser.close()
+
+    if incluye_seo:
+        print("→ Colocando portátil SEO...")
+        laptop = Image.open(SEO_IMAGE_PATH).convert("RGBA")
+        laptop = laptop.crop(laptop.getchannel("A").getbbox())
+        x0, y0, x1, y1 = SEO_LAPTOP_BOX
+        laptop = laptop.resize((x1 - x0, y1 - y0), Image.LANCZOS)
+        base.paste(laptop, (x0, y0), laptop)
 
     return base
 
@@ -268,8 +273,8 @@ def main():
 
     url, logo, incluye_seo, output = preguntar_datos(args)
 
-    if incluye_seo and not SEO_PANEL_PATH.exists():
-        print(f"Falta {SEO_PANEL_PATH.name} en la carpeta del script (necesario para --seo).")
+    if incluye_seo and not SEO_IMAGE_PATH.exists():
+        print(f"Falta {SEO_IMAGE_PATH.name} en la carpeta del script (necesario para --seo).")
         sys.exit(1)
 
     generar_portfolio(url, logo, incluye_seo, output)
