@@ -6,7 +6,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Generador de Mockups — Ikusa</title>
+<title>Generador de Mockups — EcommJuice</title>
 <style>
     * { box-sizing: border-box; }
     body {
@@ -44,7 +44,7 @@
         font-size: 0.85rem;
         text-align: center;
     }
-    .tab-btn.active { background: #FF2400; color: #fff; border-color: #FF2400; }
+    .tab-btn.active { background: #9CE000; color: #111; border-color: #9CE000; }
     .tab-content { display: none; }
     .tab-content.active { display: block; }
     .checkbox-row { display: flex; align-items: center; gap: 8px; margin-top: 20px; }
@@ -53,8 +53,8 @@
         margin-top: 28px;
         width: 100%;
         padding: 13px;
-        background: #FF2400;
-        color: #fff;
+        background: #9CE000;
+        color: #111;
         border: none;
         border-radius: 6px;
         font-size: 1rem;
@@ -73,7 +73,7 @@
     <form action="procesar.php" method="POST" enctype="multipart/form-data" id="mockupForm">
 
         <label for="cliente">Nombre del cliente</label>
-        <input type="text" name="cliente" id="cliente" placeholder="ej: eliveli" required>
+        <input type="text" name="cliente" id="cliente" required>
         <div class="hint">Se usará para el nombre de la carpeta de resultados.</div>
 
         <label>Logo del cliente</label>
@@ -86,11 +86,11 @@
             <div class="hint">PNG, JPG o SVG.</div>
         </div>
         <div class="tab-content" id="tab-url">
-            <input type="url" name="logo_url" placeholder="https://ejemplo.com/logo.svg">
+            <input type="url" name="logo_url">
         </div>
 
         <label for="url">URL del sitio a mockupear</label>
-        <input type="url" name="url" id="url" placeholder="https://elivelibarber.com" required>
+        <input type="url" name="url" id="url" required>
 
         <div class="checkbox-row">
             <input type="checkbox" name="seo" id="seo" value="1">
