@@ -68,7 +68,7 @@
 <body>
 
 <div class="card">
-    <h1>🖼 Generador de Mockups</h1>
+    <h1>Generador de Mockups</h1>
 
     <form action="procesar.php" method="POST" enctype="multipart/form-data" id="mockupForm">
 
