@@ -44,7 +44,7 @@
         font-size: 0.85rem;
         text-align: center;
     }
-    .tab-btn.active { background: #9CE000; color: #111; border-color: #9CE000; }
+    .tab-btn.active { background: var(--verde-ecommjuice); color: #111; border-color: var(--verde-ecommjuice); }
     .tab-content { display: none; }
     .tab-content.active { display: block; }
     .checkbox-row { display: flex; align-items: center; gap: 8px; margin-top: 20px; }
@@ -53,7 +53,7 @@
         margin-top: 28px;
         width: 100%;
         padding: 13px;
-        background: #9CE000;
+        background: var(--verde-ecommjuice);
         color: #111;
         border: none;
         border-radius: 6px;
