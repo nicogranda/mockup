@@ -153,9 +153,9 @@ def construir_mockup_dispositivos(url: str, incluye_seo: bool) -> Image.Image:
     base = Image.open(BASE_IMAGE_PATH).convert("RGB")
     if incluye_seo:
         # Retira el portátil anterior del frame antes de colocar el PNG completo.
-        # Se hace antes de capturar las pantallas para conservar las otras imágenes.
+        # Conserva la parte visible del monitor y su soporte a la izquierda.
         from PIL import ImageDraw
-        ImageDraw.Draw(base).rectangle((495, 377, 955, 670), fill=base.getpixel((0, 0)))
+        ImageDraw.Draw(base).rectangle((520, 455, 955, 670), fill=base.getpixel((0, 0)))
 
     with sync_playwright() as p:
         browser = p.chromium.launch()
