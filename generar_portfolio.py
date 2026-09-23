@@ -73,20 +73,20 @@ def preguntar_datos(args):
     """Completa los datos faltantes preguntando por consola."""
     logo = args.logo
     if not logo:
-        logo = input("🖼  Logo del cliente — ruta local o URL (PNG o SVG): ").strip()
+        logo = input("Logo del cliente — ruta local o URL (PNG o SVG): ").strip()
 
     if args.seo is None:
-        resp = input("📈 ¿Se hizo trabajo de SEO para este cliente? (s/n): ").strip().lower()
+        resp = input("¿Se hizo trabajo de SEO para este cliente? (s/n): ").strip().lower()
         incluye_seo = resp.startswith("s")
     else:
         incluye_seo = args.seo
 
-    url = args.url or input("🔗 URL del sitio a mockupear: ").strip()
+    url = args.url or input("URL del sitio a mockupear: ").strip()
 
     output = args.output
     if not output:
         sugerido = "portfolio_resultado.png"
-        resp = input(f"💾 Nombre del archivo de salida [{sugerido}]: ").strip()
+        resp = input(f"Nombre del archivo de salida [{sugerido}]: ").strip()
         output = resp or sugerido
 
     return url, logo, incluye_seo, output
@@ -244,7 +244,7 @@ def generar_portfolio(url: str, logo_ref: str, incluye_seo: bool, output_path: s
     colocar_logo(devices, logo, LOGO_BOX)
 
     devices.convert("RGB").save(output_path)
-    print(f"\n✅ Portfolio guardado en: {output_path}")
+    print(f"\nPortfolio guardado en: {output_path}")
 
 
 # ────────────────────────────────────────────────────────────────────────────
@@ -263,13 +263,13 @@ def main():
     args = parser.parse_args()
 
     if not BASE_IMAGE_PATH.exists():
-        print(f"❌ Falta {BASE_IMAGE_PATH.name} en la carpeta del script.")
+        print(f"Falta {BASE_IMAGE_PATH.name} en la carpeta del script.")
         sys.exit(1)
 
     url, logo, incluye_seo, output = preguntar_datos(args)
 
     if incluye_seo and not SEO_PANEL_PATH.exists():
-        print(f"❌ Falta {SEO_PANEL_PATH.name} en la carpeta del script (necesario para --seo).")
+        print(f"Falta {SEO_PANEL_PATH.name} en la carpeta del script (necesario para --seo).")
         sys.exit(1)
 
     generar_portfolio(url, logo, incluye_seo, output)
