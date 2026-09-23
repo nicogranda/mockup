@@ -1,0 +1,7 @@
+venv/
+__pycache__/
+.DS_Store
+clientes/
+mockup_resultado.*
+portfolio_resultado.png
+test_*.png
