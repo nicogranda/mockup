@@ -8,6 +8,7 @@
 <meta charset="UTF-8">
 <title>Generador de Mockups — EcommJuice</title>
 <style>
+    :root { --verde-ecommjuice: #9CE000; }
     * { box-sizing: border-box; }
     body {
         font-family: -apple-system, 'Inter', sans-serif;
